@@ -4,7 +4,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
+const backendUrl  = import.meta.env.VITE_BACKEND_URL
 
 export default function AdminItemPage() {
   const [items, setItems] = useState([]);
@@ -14,7 +14,7 @@ export default function AdminItemPage() {
   useEffect(() => {
     if(!itemsLoaded){
       const token = localStorage.getItem("token");
-    axios.get("http://localhost:3000/api/products", {
+    axios.get(`${backendUrl}/api/products`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -33,7 +33,7 @@ export default function AdminItemPage() {
 
       setItems(items.filter((item) => item.key !== key));
       const token = localStorage.getItem("token");
-      axios.delete(`http://localhost:3000/api/products/${key}`,{
+      axios.delete(`${backendUrl}/api/products/${key}`,{
       headers : {Authorization: `Bearer ${token}`},
     }).then(
       (res)=>{

@@ -3,6 +3,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+const backendUrl  = import.meta.env.VITE_BACKEND_URL
+
 export default function AddItemPage() {
     const [productKey, setProductKey] = useState("");
     const [productName, setProductName] = useState("");
@@ -17,7 +19,7 @@ export default function AddItemPage() {
         if(token){
             try{
 
-                const result = await axios.post("http://localhost:3000/api/products",{
+                const result = await axios.post(`${backendUrl}/api/products`,{
                     key : productKey,
                     name : productName,
                     price : productPrice,

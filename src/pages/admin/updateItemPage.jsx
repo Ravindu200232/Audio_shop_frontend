@@ -3,6 +3,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const backendUrl  = import.meta.env.VITE_BACKEND_URL
+
 export default function UpdateItemPage() {
 
     const navigate = useNavigate();
@@ -24,7 +26,7 @@ export default function UpdateItemPage() {
         if(token){
             try{
 
-                const result = await axios.put(`http://localhost:3000/api/products/${productKey}`,{
+                const result = await axios.put(`${backendUrl}/api/products/${productKey}`,{
                     key : productKey,
                     name : productName,
                     price : productPrice,

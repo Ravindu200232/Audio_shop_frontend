@@ -14,7 +14,10 @@ export default function Login(){
 
       function handleOnSubmit(e){
        e.preventDefault()//default sumbit refres wena eka nawaththganna
-       axios.post("http://localhost:3000/api/users/login",
+
+       const backendUrl  = import.meta.env.VITE_BACKEND_URL
+
+       axios.post(`${backendUrl}/api/users/login`,
        {email : email,
         password : password
        }).then((res)=>{

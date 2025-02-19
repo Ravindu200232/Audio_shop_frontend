@@ -13,7 +13,7 @@ export default function HomePage(){
         <header className="fixed top-0 left-0 w-full bg-white shadow-xl z-50">
           <Header />
         </header>
-        <div className="w-full h-[calc(100vh-100px)]">
+        <div className="w-full h-full">
             <Routes path="/*">
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/gallery" element={<Gallery/>}/>

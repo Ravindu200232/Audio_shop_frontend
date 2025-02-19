@@ -2,7 +2,7 @@ import { AiOutlineFacebook, AiOutlineTwitter, AiOutlineInstagram } from "react-i
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gray-900 text-white py-10">
+    <footer className="w-full h-[250px] bg-gray-900 text-white py-10">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-between px-6 md:px-12">
         
         {/* Company Section */}

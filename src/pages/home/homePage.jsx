@@ -6,23 +6,27 @@ import Item from "./item";
 import Home from "./home";
 import ErrorNotFound from "./error";
 import Footer from "../../components/footer";
+import ProductOverview from "./productOverview";
 
-export default function HomePage(){
-    return(
-        <>
-        <header className="fixed top-0 left-0 w-full bg-white shadow-xl z-50">
-          <Header />
-        </header>
-        <div className="w-full h-full bg-primary">
-            <Routes path="/*">
-            <Route path="/contact" element={<Contact/>}/>
-            <Route path="/gallery" element={<Gallery/>}/>
-            <Route path="/item" element={<Item/>}/>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/*" element={<ErrorNotFound/>}/>
-            </Routes>
-        </div>
-       <footer><Footer/></footer>
-        </>
-    )
+export default function HomePage() {
+  return (
+    <div className="w-screen h-screen ">
+      <header>
+        <Header />
+      </header>
+      <div className="w-full h-full ">
+        <Routes path="/*">
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/item" element={<Item />} />
+          <Route path="/product/:key" element={<ProductOverview />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<ErrorNotFound />} />
+        </Routes>
+      </div>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  );
 }

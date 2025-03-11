@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import mediaUpload from "../../utils/mediaUpload";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -12,12 +13,32 @@ export default function AddItemPage() {
   const [productCategory, setProductCategory] = useState("audio");
   const [productDimension, setProductDimension] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [productImages, setProductImages] = useState([]);
   const navigate = useNavigate();
 
   async function handleAddItem() {
+    const promises = [];
+
+    for (let i = 0; i < productImages.length; i++) {
+      console.log(productImages[i]);
+      const promise = mediaUpload(productImages[i]);
+      promises.push(promise);
+      // if(i == 5){
+      //   toast.error("You can only uploaded 25 images at a time")
+      //   break;
+      // }
+    }
+
     const token = localStorage.getItem("token");
     if (token) {
       try {
+        // Promise.all(promises).then((result)=>{
+        //   console.log(result);
+        // }).catch((err)=>{
+        //   toast.error(err)
+        // })
+
+        const imageUrls = await Promise.all(promises);
         const result = await axios.post(
           `${backendUrl}/api/products`,
           {
@@ -27,6 +48,7 @@ export default function AddItemPage() {
             category: productCategory,
             dimensions: productDimension,
             description: productDescription,
+            Image: imageUrls,
           },
           {
             headers: {
@@ -90,6 +112,16 @@ export default function AddItemPage() {
           value={productDescription}
           onChange={(e) => setProductDescription(e.target.value)}
         />
+
+        <input
+          type="file"
+          multiple
+          onChange={(e) => {
+            setProductImages(e.target.files);
+          }}
+          className="w-full p-2 border rounded"
+        ></input>
+
         <div className="flex justify-between space-x-2">
           <button
             className="w-1/2 bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition"

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ImageSlider from "../../components/imageSLidet";
+import ImageSlider from "../../components/imageSlider";
 
 export default function ProductOverview() {
   const params = useParams();

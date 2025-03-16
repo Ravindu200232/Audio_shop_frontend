@@ -7,6 +7,7 @@ import Home from "./home";
 import ErrorNotFound from "./error";
 import Footer from "../../components/footer";
 import ProductOverview from "./productOverview";
+import { BookingPage } from "./bookingpage";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/item" element={<Item />} />
           <Route path="/product/:key" element={<ProductOverview />} />
+          <Route path="/cart" element={<BookingPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<ErrorNotFound />} />
         </Routes>

@@ -21,7 +21,11 @@ export default function Login(){
        {email : email,
         password : password
        }).then((res)=>{
-        toast.success("Login success")
+        if(res.data.message == "User is blocked"){
+           toast.error(res.data.message) 
+           return
+        }
+        toast.success(res.data.message)
         const user = res.data.user
 
         localStorage.setItem("token",res.data.token)

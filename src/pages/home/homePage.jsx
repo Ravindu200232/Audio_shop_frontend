@@ -11,11 +11,11 @@ import { BookingPage } from "./bookingpage";
 
 export default function HomePage() {
   return (
-    <div className="w-screen h-screen ">
-      <header>
+    <div className="w-screen h-screen flex flex-col ">
+      <header className="fixed top-0 w-full z-10 shadow-lg shadow-black">
         <Header />
       </header>
-      <div className="w-full h-full ">
+      <div className="flex-grow mt-16 h-full ">
         <Routes path="/*">
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
@@ -26,8 +26,8 @@ export default function HomePage() {
           <Route path="/*" element={<ErrorNotFound />} />
         </Routes>
       </div>
-      <footer>
-        <Footer />
+      <footer >
+       
       </footer>
     </div>
   );

@@ -122,3 +122,8 @@ export default function AdminItemPage() {
     </div>
   );
 }
+
+<div className="items-center justify-center flex text-[100px] animate-spin"></div>;
+
+
+

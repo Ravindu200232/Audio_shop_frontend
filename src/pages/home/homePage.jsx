@@ -15,7 +15,7 @@ export default function HomePage() {
       <header className="fixed top-0 w-full z-10 shadow-lg shadow-black">
         <Header />
       </header>
-      <div className="flex-grow mt-16 h-full ">
+      <div className="flex-grow mt-16 h-full bg-primary ">
         <Routes path="/*">
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />

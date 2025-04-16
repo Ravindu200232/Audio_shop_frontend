@@ -167,40 +167,39 @@ export default function Home() {
       </div>
 
       {/* Customer Testimonials Section */}
-<div className="w-full min-h-[400px] flex flex-col items-center pt-10 bg-primary text-white px-6 text-center">
-  <h2 className="text-lg md:text-xl font-semibold mb-6">
-    See what our customers are saying.
-  </h2>
+      <div className="w-full min-h-[400px] flex flex-col items-center pt-10 bg-primary text-white px-6 text-center">
+        <h2 className="text-lg md:text-xl font-semibold mb-6">
+          See what our customers are saying.
+        </h2>
 
-  <div className="flex flex-col items-center max-w-3xl">
-    <div className="text-4xl md:text-5xl border-2 w-14 h-14 flex justify-center items-center rounded-full mb-4">
-      "
-    </div>
-    <p className="text-base md:text-lg">
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel
-      sapien nec velit posuere placerat at ac justo. Nulla facilisi. Duis 
-      suscipit, lorem at sodales ultrices, lorem sapien maximus risus, eget 
-      feugiat eros purus at augue."
-    </p>
-  </div>
-</div>
+        <div className="flex flex-col items-center max-w-3xl">
+          <div className="text-4xl md:text-5xl border-2 w-14 h-14 flex justify-center items-center rounded-full mb-4">
+            "
+          </div>
+          <p className="text-base md:text-lg">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel
+            sapien nec velit posuere placerat at ac justo. Nulla facilisi. Duis
+            suscipit, lorem at sodales ultrices, lorem sapien maximus risus,
+            eget feugiat eros purus at augue."
+          </p>
+        </div>
+      </div>
 
-{/* Call to Action Section */}
-<div className="w-full min-h-[300px] bg-blue-950 flex flex-col items-center justify-center text-white text-center px-6">
-  <h1 className="text-2xl md:text-3xl font-semibold mb-4">
-    Ready to work with Audio Rent KV?
-  </h1>
-  <p className="text-base md:text-lg mb-6">
-    Check out our equipment packages or contact us today!
-  </p>
-  <Link
-    to=""
-    className="bg-accent px-6 py-3 rounded-md flex justify-center items-center text-black font-semibold hover:bg-purple-900 transition"
-  >
-    Book Now
-  </Link>
-</div>
-
+      {/* Call to Action Section */}
+      <div className="w-full min-h-[300px] bg-blue-950 flex flex-col items-center justify-center text-white text-center px-6">
+        <h1 className="text-2xl md:text-3xl font-semibold mb-4">
+          Ready to work with Audio Rent KV?
+        </h1>
+        <p className="text-base md:text-lg mb-6">
+          Check out our equipment packages or contact us today!
+        </p>
+        <Link
+          to=""
+          className="bg-accent px-6 py-3 rounded-md flex justify-center items-center text-black font-semibold hover:bg-purple-900 transition"
+        >
+          Book Now
+        </Link>
+      </div>
 
       <Footer />
     </div>

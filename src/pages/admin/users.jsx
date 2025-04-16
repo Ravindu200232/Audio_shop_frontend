@@ -60,7 +60,7 @@ export default function User() {
       ) : (
         <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg overflow-hidden">
           <table className="w-full border-collapse">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-primary text-white">
               <tr>
                 <th className="py-3 px-4 text-center">Profile</th>
                 <th className="py-3 px-4 text-left">Email</th>

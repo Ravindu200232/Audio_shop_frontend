@@ -48,8 +48,11 @@ export default function AdminItemPage() {
 
   return (
     <div className="w-full h-full p-6 flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-gray-700 mb-6">Item Management</h1>
       {!itemsLoaded && (
-        <div className="border-b w-[100px] h-[100px]  my-4 border-b-green-500 rounded-full animate-spin"></div>
+        <div className="flex justify-center items-center h-64">
+          <div className="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+        </div>
       )}
       {itemsLoaded && (
         <div className="w-full max-w-6xl overflow-x-auto">
@@ -124,6 +127,3 @@ export default function AdminItemPage() {
 }
 
 <div className="items-center justify-center flex text-[100px] animate-spin"></div>;
-
-
-

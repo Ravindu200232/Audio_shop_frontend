@@ -125,9 +125,7 @@ export default function Item() {
 
         {state === "success" &&
           filteredItems.map((item) => (
-            <div
-              key={item.key}
-            >
+            <div key={item.key}>
               <ProductCard item={item} />
             </div>
           ))}

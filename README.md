@@ -9,7 +9,7 @@ This project is a minimal setup for React with Vite, featuring Fast Refresh, ESL
 Here are screenshots of the website from `1.png` to `31.png`, located in the `public/` directory.
 
 <details>
-<summary>Click to expand screenshots (1–31)</summary>
+<summary>📸 👉 <strong>CLICK TO EXPAND: Screenshots 1–31</strong> 🔍</summary>
 
 <!-- Image Gallery -->
   

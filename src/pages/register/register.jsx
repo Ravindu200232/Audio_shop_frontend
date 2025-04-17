@@ -55,11 +55,7 @@ export default function Register() {
     <form onSubmit={handleOnSubmit}>
       <div className="w-full h-screen flex justify-center items-center bg-picture">
         <div className="w-[400px] h-[700px] backdrop-blur-xl rounded-2xl flex flex-col justify-center items-center relative">
-          <img
-            src="/logo.png"
-            className="w-[100px] h-[100px] object-cover top-2 absolute rounded-full"
-            alt="Logo"
-          />
+          
           <span className="text-white text-3xl mt-24 mb-4">Register</span>
 
           {/* Profile Image */}
@@ -72,6 +68,9 @@ export default function Register() {
               alt="Profile"
               className="w-24 h-24 object-cover rounded-full border-2 border-white"
             />
+            <label className="text-white text-sm mt-2 cursor-pointer">
+              Click to upload image
+            </label>
           </div>
           <input
             type="file"

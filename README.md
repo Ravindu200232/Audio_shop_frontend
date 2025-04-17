@@ -8,7 +8,7 @@ Here are some screenshots of the website:
 
 ### Homepage
 
-![Homepage Screenshot](./public/screenshots/profile-page.png)
+![Homepage Screenshot](./public/1.png)
 
 ### Profile Page
 

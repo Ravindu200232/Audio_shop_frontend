@@ -138,7 +138,7 @@ export default function AdminBookingPage() {
                 <div>
                   Order Date: {new Date(order.orderDate).toLocaleDateString()}
                 </div>
-                <div>Total Amount: ${order.totalAmount}</div>
+                <div>Total Amount: Rs.{order.totalAmount}</div>
                 <div>Description: {order.description || "N/A"}</div>
 
                 <div className="flex justify-between mt-4">

@@ -65,7 +65,7 @@ export default function AdminItemPage() {
                 className="border rounded-lg shadow p-4 bg-white space-y-1"
               >
                 <div className="text-sm font-semibold text-gray-600">
-                  {product.name} - ${product.price}
+                  {product.name} - Rs.{product.price}
                 </div>
                 <div className="text-sm text-gray-500">
                   Category: {product.category}

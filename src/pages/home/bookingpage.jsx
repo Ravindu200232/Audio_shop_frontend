@@ -3,6 +3,7 @@ import { formatDate, LoadCart } from "../../utils/card";
 import BookingItem from "../../components/bookingitem";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function BookingPage() {
   const [cart, setCart] = useState(LoadCart());
@@ -10,15 +11,15 @@ export function BookingPage() {
   const [endDate, setEndDate] = useState(
     formatDate(new Date(Date.now() + 24 * 60 * 60 * 1000))
   );
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
 
   function reloadCart() {
     setCart(LoadCart());
     calculateTotal();
-   
   }
 
-  function calculateTotal(){
+  function calculateTotal() {
     const cartInfo = LoadCart();
     cartInfo.startingDate = startDate;
     cartInfo.endingDate = endDate;
@@ -27,16 +28,16 @@ export function BookingPage() {
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/orders/quote`, cartInfo)
       .then((res) => {
         console.log(res.data);
-        setTotal(res.data.total)
+        setTotal(res.data.total);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     calculateTotal();
-  },[startDate,endDate])
+  }, [startDate, endDate]);
 
   function handleBookingCreation() {
     const cart = LoadCart();
@@ -53,9 +54,17 @@ export function BookingPage() {
       })
       .then((res) => {
         console.log(res.data);
+        const sendData = res.data;
         localStorage.removeItem("cart");
         toast.success("Booking Created");
         setCart(LoadCart());
+        if (res.data) {
+          navigate("/bookingconfirmation", {
+            state: { sendData },
+          });
+        } else {
+          toast.error("Invalid booking details received.");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -106,10 +115,7 @@ export function BookingPage() {
       <div className="w-full max-w-3xl flex flex-col items-center space-y-4">
         {cart.orderItem.length > 0 ? (
           cart.orderItem.map((item) => (
-            <div
-              key={item.key}
-              className="w-full   rounded-lg "
-            >
+            <div key={item.key} className="w-full   rounded-lg ">
               <BookingItem
                 itemKey={item.key}
                 qty={item.qty}
@@ -122,10 +128,10 @@ export function BookingPage() {
         )}
       </div>
 
-      
-
       <div className="w-full flex justify-center mt-4 flex-col items-center">
-        <p className="text-accent font-semibold mb-3">Total : {total.toFixed(2)}</p>
+        <p className="text-accent font-semibold mb-3">
+          Total : {total.toFixed(2)}
+        </p>
         <button
           className="bg-accent text-white px-4 py-2 rounded-md"
           onClick={handleBookingCreation}

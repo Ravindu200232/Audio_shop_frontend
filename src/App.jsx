@@ -9,6 +9,9 @@ import Register from "./pages/register/register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import VerifyEmail from "./pages/verifyEmail/verifyEmail";
 import PackageDetails from "./pages/home/package";
+import { Payment } from "./pages/home/payment";
+import BookingConfirmation from "./pages/home/bookingConfirmation";
+import { PkgBookingConfirmation } from "./pages/home/pkgbookingConfirmation";
 
 function App() {
   return (
@@ -23,6 +26,12 @@ function App() {
           <Route path="/register/*" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/package/" element={<PackageDetails />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route
+            path="/bookingconfirmation"
+            element={<BookingConfirmation />}
+          />
+          <Route path="/pkgBookingConfirm" element={<PkgBookingConfirmation />} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

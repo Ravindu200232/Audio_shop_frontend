@@ -106,7 +106,7 @@ export default function PackageDetails() {
 
       if (response.status === 200) {
         alert("Booking successful!");
-        navigate("/orders");
+        navigate("/pkgBookingConfirm", { state: response.data });
       }
     } catch (error) {
       console.error("Booking failed:", error);

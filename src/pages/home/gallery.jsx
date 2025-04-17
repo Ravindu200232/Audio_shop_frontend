@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/footer";
 
 export default function Gallery() {
   const [packages, setPackages] = useState([]);
@@ -33,8 +34,9 @@ export default function Gallery() {
   };
 
   return (
+    <div>   
     <div className="min-h-screen bg-primary text-secondary py-12 px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-10">
         {packages.map((item) => (
           <div
             key={item._id}
@@ -53,6 +55,10 @@ export default function Gallery() {
           </div>
         ))}
       </div>
+      
     </div>
+    <Footer />
+    </div>
+    
   );
 }

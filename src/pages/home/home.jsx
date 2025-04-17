@@ -12,7 +12,7 @@ export default function Home() {
       <div className="bg-black w-full md:h-[50%]  relative ">
         <div className="absolute right-[50%] bottom-[17%] text-secondary transform translate-x-[50%]">
           <Link
-            to=""
+            to="/gallery"
             className="bg-accent md:p-2 p-1 text-[10px] md:text-lg font-semibold hover:bg-purple-900 rounded-md text-primary"
           >
             Rental Package
@@ -42,7 +42,7 @@ export default function Home() {
               </p>
               <Link
                 className="bg-accent w-[100px] h-[40px] text-primary font-semibold flex justify-center items-center rounded-md mt-3"
-                to=""
+                to="/gallery"
               >
                 Learn more
               </Link>
@@ -60,7 +60,7 @@ export default function Home() {
               </p>
               <Link
                 className="bg-accent w-[100px] h-[40px] text-primary font-semibold flex justify-center items-center rounded-md mt-3"
-                to=""
+                to="/gallery"
               >
                 Learn more
               </Link>
@@ -78,7 +78,7 @@ export default function Home() {
               </p>
               <Link
                 className="bg-accent w-[100px] h-[40px] text-primary font-semibold flex justify-center items-center rounded-md mt-3"
-                to=""
+                to="/gallery"
               >
                 Learn more
               </Link>
@@ -194,7 +194,7 @@ export default function Home() {
           Check out our equipment packages or contact us today!
         </p>
         <Link
-          to=""
+          to="/item"
           className="bg-accent px-6 py-3 rounded-md flex justify-center items-center text-black font-semibold hover:bg-purple-900 transition"
         >
           Book Now

@@ -1,34 +1,25 @@
-# My React App with Vite
+import React from "react";
 
-This project is a minimal setup for React with Vite, featuring Fast Refresh and ESLint configuration.
+export default function ImageGallery() {
+  // Create an array for images from 1.png to 31.png
+  const imageArray = Array.from({ length: 31 }, (_, index) => ({
+    src: `/1-${index + 1}.png`, // Image path (e.g., /1-1.png, /1-2.png, etc.)
+    alt: `Image ${index + 1}`,   // Alt text for each image
+  }));
 
-## Screenshot
-
-Here are some screenshots of the website:
-
-### Homepage
-
-![Homepage Screenshot](./public/1.png)
-
-### Profile Page
-
-![Profile Page Screenshot](./public/screenshots/profile-page.png)
-
-### Item Gallery
-
-![Item Gallery Screenshot](./public/screenshots/item-gallery.png)
-
-## Features
-
-- Fast Refresh with React using [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) or [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc).
-- ESLint integration for cleaner code.
-- Built with Vite for fast bundling.
-
-## Getting Started
-
-To get started with this project, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
+  return (
+    <div className="w-full min-h-screen bg-gray-100 flex justify-center items-center py-10">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+        {imageArray.map((image, index) => (
+          <div key={index} className="flex justify-center">
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-32 h-32 object-cover rounded-md shadow-lg"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

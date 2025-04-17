@@ -140,6 +140,17 @@ export default function Login() {
               <FcGoogle className="text-red-500 text-xl" />
               Login with Google
             </button>
+
+            {/* //create sign up button to navigate to signup page */}
+            <p className="text-white mt-4">
+              Don't have an account?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => navigate("/register")}
+              >
+                Sign Up
+              </span>
+            </p>
           </div>
         </div>
       </div>

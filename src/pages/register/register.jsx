@@ -128,6 +128,16 @@ export default function Register() {
           <button className="mt-4 w-[300px] h-[50px] bg-[#010750] text-xl text-white rounded-lg">
             Register
           </button>
+
+          <span className="text-white text-sm mt-4 mb-2">
+            Already have an account?{" "}
+            <span
+              className="text-blue-400 cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
+          </span>
         </div>
       </div>
     </form>

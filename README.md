@@ -8,7 +8,7 @@ Here are some screenshots of the website:
 
 ### Homepage
 
-![Homepage Screenshot]("https://mysliit-my.sharepoint.com/my?id=%2Fpersonal%2Fit22098450%5Fmy%5Fsliit%5Flk%2FDocuments%2FkvAudio%2FScreenshot%202025%2D04%2D18%20022423%2Epng&parent=%2Fpersonal%2Fit22098450%5Fmy%5Fsliit%5Flk%2FDocuments%2FkvAudio&ga=1")
+![Homepage Screenshot](./public/screenshots/profile-page.png)
 
 ### Profile Page
 

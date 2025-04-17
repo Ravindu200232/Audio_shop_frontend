@@ -19,10 +19,10 @@ function App() {
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes path="/">
+          <Route path="/*" element={<HomePage />} />
           <Route path="/testing" element={<Testing />} />
           <Route path="/login" element={<Login />} />
           <Route path="admin/*" element={<AdminPage />} />
-          <Route path="/*" element={<HomePage />} />
           <Route path="/register/*" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/package/" element={<PackageDetails />} />
@@ -31,7 +31,10 @@ function App() {
             path="/bookingconfirmation"
             element={<BookingConfirmation />}
           />
-          <Route path="/pkgBookingConfirm" element={<PkgBookingConfirmation />} />
+          <Route
+            path="/pkgBookingConfirm"
+            element={<PkgBookingConfirmation />}
+          />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

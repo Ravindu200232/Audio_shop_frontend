@@ -1,21 +1,28 @@
+import { AiOutlineLogin } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { HiMenu } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FaSignInAlt } from "react-icons/fa"; // Login icon
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
 
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    // If there's a token, fetch user data from localStorage
+    if (token) {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     }
-  }, []);
+  }, [token]);
 
   return (
-    <header className="w-full h-[80px] shadow-xl flex justify-between items-center px-4 md:px-8  bg-gradient-to-r from-gray-900 to-primary relative">
+    <header className="w-full h-[80px] shadow-xl flex justify-between items-center px-4 md:px-8 bg-gradient-to-r from-gray-900 to-primary relative">
       {/* Logo */}
       <div className="flex items-center">
         <img
@@ -43,7 +50,8 @@ export default function Header() {
 
       {/* Icons and User Info */}
       <div className="flex items-center space-x-4 text-white">
-        {user && (
+        {/* Display user info if logged in */}
+        {user ? (
           <div className="flex items-center space-x-2">
             <span className="text-[16px] text-lg hidden md:inline">
               {user.firstName}
@@ -56,6 +64,11 @@ export default function Header() {
               />
             </Link>
           </div>
+        ) : (
+          // Show login icon/link if no user is logged in
+          <Link to="/login" className="text-[30px] hover:text-gray-400">
+            <AiOutlineLogin />
+          </Link>
         )}
 
         <Link to="/cart">

@@ -1,4 +1,3 @@
-// AdminPage.jsx
 import { BsGraphDown } from "react-icons/bs";
 import { CiSpeaker, CiBookmarkCheck, CiUser } from "react-icons/ci";
 import { Link, Route, Routes } from "react-router-dom";
@@ -10,6 +9,9 @@ import AdminBookingPage from "./adminbookingpage";
 import { MdRateReview } from "react-icons/md";
 import { AdminReviewPage } from "./adminReviewpage";
 import { AdminInquiryPage } from "./adminInquirypage";
+import AdminPackagePage from "./adminpakage";
+import AddPackagePage from "./addpackage";
+import UpdatePackagePage from "./updatepackage";
 
 export default function AdminPage() {
   return (
@@ -33,6 +35,13 @@ export default function AdminPage() {
           >
             <CiSpeaker className="w-6 h-6" />
             <span className="ml-4">Items</span>
+          </Link>
+          <Link
+            to="/admin/package"
+            className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200" // New Link for Packages
+          >
+            <CiBookmarkCheck className="w-6 h-6" />
+            <span className="ml-4">Packages</span> {/* Package Section */}
           </Link>
           <Link
             to="/admin/user"
@@ -70,6 +79,9 @@ export default function AdminPage() {
           <Route path="/user/*" element={<User />} />
           <Route path="/review" element={<AdminReviewPage />} />
           <Route path="/inquiry" element={<AdminInquiryPage />} />
+          <Route path="/package" element={<AdminPackagePage />} /> 
+          <Route path="/package/add" element={<AddPackagePage />} /> 
+          <Route path="/package/edit" element={<UpdatePackagePage />} /> 
         </Routes>
       </main>
     </div>

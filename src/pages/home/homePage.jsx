@@ -8,6 +8,8 @@ import ErrorNotFound from "./error";
 import Footer from "../../components/footer";
 import ProductOverview from "./productOverview";
 import { BookingPage } from "./bookingpage";
+import { Profile } from "./profile";
+import PackageDetails from "./package";
 
 export default function HomePage() {
   return (
@@ -15,7 +17,7 @@ export default function HomePage() {
       <header className="fixed top-0 w-full z-10 shadow-lg shadow-black">
         <Header />
       </header>
-      <div className="flex-grow mt-16 h-full bg-primary ">
+      <div className="flex-grow mt-16  bg-primary ">
         <Routes path="/*">
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
@@ -24,11 +26,11 @@ export default function HomePage() {
           <Route path="/cart" element={<BookingPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<ErrorNotFound />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/package/*" element={<PackageDetails />} />
         </Routes>
       </div>
-      <footer >
-       
-      </footer>
+      <footer></footer>
     </div>
   );
 }

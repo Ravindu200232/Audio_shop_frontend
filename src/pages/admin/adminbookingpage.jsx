@@ -114,6 +114,7 @@ export default function AdminBookingPage() {
                 <th className="py-3 px-4 text-left">Email</th>
                 <th className="py-3 px-4 text-left">Order Date</th>
                 <th className="py-3 px-4 text-left">Total Amount</th>
+                <th className="py-3 px-4 text-left">Description</th>
                 <th className="py-3 px-4 text-center">Status</th>
                 <th className="py-3 px-4 text-center">Approve</th>
                 <th className="py-3 px-4 text-center">Details</th>
@@ -131,6 +132,7 @@ export default function AdminBookingPage() {
                       {new Date(order.orderDate).toLocaleDateString()}
                     </td>
                     <td className="py-3 px-4">${order.totalAmount}</td>
+                    <td className="py-3 px-4">{order.description || "N/A"}</td>
                     <td className="py-3 px-4 text-center">
                       <span
                         className={`px-3 py-1 text-sm font-semibold rounded-full ${
@@ -178,7 +180,7 @@ export default function AdminBookingPage() {
 
                   {expandedRows[order.orderId] && (
                     <tr>
-                      <td colSpan="8" className="bg-gray-50 p-4">
+                      <td colSpan="9" className="bg-gray-50 p-4">
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           {order.orderItem.map((item) => (
                             <div

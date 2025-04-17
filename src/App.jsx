@@ -15,7 +15,7 @@ import { PkgBookingConfirmation } from "./pages/home/pkgbookingConfirmation";
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="93119756985-hi9301l5jahcclbrvq5oh1ua3le50bto.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="93119756985-3cvvkvdu7epn3h2k0i53pg5i17o9b3ji.apps.googleusercontent.com">
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes path="/">

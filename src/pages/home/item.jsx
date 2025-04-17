@@ -16,8 +16,9 @@ export default function Item() {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/api/products`)
         .then((res) => {
-          setItems(res.data);
-          setFilteredItems(res.data);
+          const allItems = res.data;
+          setItems(allItems);
+          setFilteredItems(allItems);
           setState("success");
         })
         .catch((err) => {
@@ -34,7 +35,7 @@ export default function Item() {
     filterItems(value, categoryFilters);
   };
 
-  // Handle Checkbox Filters
+  // Handle Checkbox Filters (only "audio" and "lights")
   const handleFilterChange = (e) => {
     const { value, checked } = e.target;
     const updatedFilters = checked
@@ -57,7 +58,7 @@ export default function Item() {
 
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((item) =>
-        selectedCategories.includes(item.category)
+        selectedCategories.includes(item.category?.toLowerCase())
       );
     }
 
@@ -65,7 +66,7 @@ export default function Item() {
   };
 
   return (
-    <div className="w-full min-h-screen  mt-[20px] bg-primary text-white">
+    <div className="w-full min-h-screen mt-[20px] bg-primary text-white">
       {/* Search & Filter Section */}
       <div className="w-full max-w-6xl mx-auto p-4">
         <div className="flex flex-col md:flex-row items-center justify-between mb-4">
@@ -75,37 +76,31 @@ export default function Item() {
             placeholder="Search items..."
             value={searchTerm}
             onChange={handleSearch}
-            className="w-full md:w-[40%] p-2 border border-gray-300 rounded-md outline-none"
+            className="w-full md:w-[40%] p-2 border border-gray-300 rounded-md outline-none text-black"
           />
 
-          {/* Filter Options */}
-          <div className="flex flex-wrap gap-3 mt-3 md:mt-0">
-            <label className="flex items-center gap-2">
+          {/* Static Filter Options */}
+          <div className="flex gap-6 mt-3 md:mt-0">
+            {/* Audio Checkbox */}
+            <label className="flex items-center space-x-2 cursor-pointer text-white">
               <input
                 type="checkbox"
-                value="Electronics"
+                value="audio"
                 onChange={handleFilterChange}
-                className="accent-green-500"
+                className="w-5 h-5 rounded-md border-2 border-gray-400 accent-green-500 transition-all duration-200 hover:scale-110"
               />
-              Electronics
+              <span className="text-lg">Audio</span>
             </label>
-            <label className="flex items-center gap-2">
+
+            {/* Lights Checkbox */}
+            <label className="flex items-center space-x-2 cursor-pointer text-white">
               <input
                 type="checkbox"
-                value="Clothing"
+                value="lights"
                 onChange={handleFilterChange}
-                className="accent-green-500"
+                className="w-5 h-5 rounded-md border-2 border-gray-400 accent-green-500 transition-all duration-200 hover:scale-110"
               />
-              Clothing
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                value="Accessories"
-                onChange={handleFilterChange}
-                className="accent-green-500"
-              />
-              Accessories
+              <span className="text-lg">Lights</span>
             </label>
           </div>
         </div>
@@ -120,12 +115,12 @@ export default function Item() {
         )}
 
         {state === "success" && filteredItems.length === 0 && (
-          <p className="text-gray-600 text-center w-full">No items found.</p>
+          <p className="text-gray-300 text-center w-full">No items found.</p>
         )}
 
         {state === "success" &&
           filteredItems.map((item) => (
-            <div key={item.key}>
+            <div key={item._id || item.key}>
               <ProductCard item={item} />
             </div>
           ))}

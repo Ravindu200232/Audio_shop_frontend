@@ -90,7 +90,7 @@ export default function ProductOverview() {
               <h1 className="text-3xl font-bold text-accent mb-4">
                 {product.name}
               </h1>
-              <p className="text-xl mb-2">Price: ${product.price}</p>
+              <p className="text-xl mb-2">Price: Rs.{product.price}</p>
               <p className="text-xl mb-2">Category: {product.category}</p>
               <p className="text-xl mb-2">Dimensions: {product.dimensions}</p>
               <p className="text-xl mb-2">Description: {product.description}</p>

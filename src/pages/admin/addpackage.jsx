@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import mediaUpload from "../../utils/mediaUpload";
+import toast from "react-hot-toast";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -65,9 +66,11 @@ export default function AddPackagePage() {
       );
 
       console.log(response.data);
+      toast.success("Package added successfully!");
       navigate("/admin/package");
     } catch (error) {
       console.error("Error adding package:", error);
+      toast.error("Failed to add package. Please try again.");
     }
   };
 

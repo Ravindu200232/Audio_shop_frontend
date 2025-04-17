@@ -84,7 +84,8 @@ export function AdminReviewPage() {
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Review Management</h2>
 
-      <div className="overflow-x-auto">
+      {/* Table for larger screens */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="min-w-full bg-white border rounded-md shadow-md">
           <thead>
             <tr className="bg-gray-100 text-left text-sm font-semibold text-gray-700">
@@ -148,6 +149,62 @@ export function AdminReviewPage() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile view for reviews */}
+      <div className="block sm:hidden">
+        {reviews.length === 0 ? (
+          <p className="text-center text-gray-500 mt-10">No reviews found.</p>
+        ) : (
+          reviews.map((review) => (
+            <div
+              key={review._id}
+              className="border rounded-lg shadow-md p-4 mb-4 bg-white"
+            >
+              <div className="flex items-center mb-2">
+                <img
+                  src={review.profilePicture}
+                  alt="profile"
+                  className="w-10 h-10 rounded-full mr-3"
+                />
+                <div>
+                  <p className="font-medium">{review.name}</p>
+                  <p className="text-sm text-gray-500">{review.email}</p>
+                </div>
+              </div>
+              <p className="text-sm">{review.comment}</p>
+              <div className="mt-2 text-sm font-semibold">
+                Rating: {review.rating} / 5
+              </div>
+              <div className="mt-2">
+                <span
+                  className={`${
+                    review.isApproved ? "text-green-600" : "text-yellow-600"
+                  }`}
+                >
+                  {review.isApproved ? "Approved" : "Pending"}
+                </span>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {!review.isApproved && (
+                  <button
+                    onClick={() => handleApprove(review._id)}
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  >
+                    Approve
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(review._id)}
+                  className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ export function BookingPage() {
       })
       .catch((err) => {
         console.log(err);
-        toast.success("Booking Failed");
+        toast.success("Please Login");
       });
   }
 

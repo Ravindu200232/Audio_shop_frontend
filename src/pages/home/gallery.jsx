@@ -34,31 +34,31 @@ export default function Gallery() {
   };
 
   return (
-    <div>   
-    <div className="min-h-screen bg-primary text-secondary py-12 px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-10">
-        {packages.map((item) => (
-          <div
-            key={item._id}
-            onClick={() => handleItemClick(item)}
-            className="cursor-pointer bg-white text-primary rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300"
-          >
-            <img
-              src={item.image || "/default-package-image.jpg"} // Use a default image if none exists
-              alt={item.name}
-              className="w-full h-[300px] object-cover"
-            />
-            <div className="p-4">
-              <p className="text-xl font-semibold text-gray-600">{item.name}</p>
-              <p className="text-sm text-gray-500">{item.description}</p>
+    <div>
+      <div className="min-h-screen bg-primary text-secondary py-12 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-10">
+          {packages.map((item) => (
+            <div
+              key={item._id}
+              onClick={() => handleItemClick(item)}
+              className="cursor-pointer bg-white text-primary rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+            >
+              <img
+                src={item.image || "/default-package-image.jpg"} // Use a default image if none exists
+                alt={item.name}
+                className="w-full h-[300px] object-cover"
+              />
+              <div className="p-4">
+                <p className="text-xl font-semibold text-gray-600">
+                  {item.name}
+                </p>
+                <p className="text-sm text-gray-500">{item.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      
+      <Footer />
     </div>
-    <Footer />
-    </div>
-    
   );
 }

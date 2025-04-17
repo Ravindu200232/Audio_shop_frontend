@@ -60,7 +60,7 @@ export function AdminPayment() {
               {payments.map((payment) => (
                 <tr key={payment._id} className="border-t hover:bg-gray-100">
                   <td className="p-3">{payment.bookingId}</td>
-                  <td className="p-3">${payment.amount.toFixed(2)}</td>
+                  <td className="p-3">Rs.{payment.amount.toFixed(2)}</td>
                   <td className="p-3">{payment.paymentType}</td>
                   <td className="p-3">
                     {new Date(payment.paymentDate).toLocaleDateString()}

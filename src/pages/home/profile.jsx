@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import mediaUpload from "../../utils/mediaUpload"; // Updated to handle renaming
+import mediaUpload from "../../utils/mediaUpload";
 import Footer from "../../components/footer";
 
 export function Profile() {
@@ -19,6 +19,9 @@ export function Profile() {
     oldPassword: "",
     newPassword: "",
   });
+  const [orders, setOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+  const [isOrderHistoryVisible, setIsOrderHistoryVisible] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -35,6 +38,30 @@ export function Profile() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/orders/one`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setOrders(response.data);
+      } catch (err) {
+        console.error("Failed to fetch order history", err);
+        Swal.fire("Error", "Could not fetch order history.", "error");
+      } finally {
+        setOrdersLoading(false);
+      }
+    };
+
+    if (user) fetchOrders();
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -53,8 +80,7 @@ export function Profile() {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token");
-
-      const res = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/update/${user.id}`,
         formData,
         {
@@ -63,7 +89,6 @@ export function Profile() {
           },
         }
       );
-
       Swal.fire("Success", "Profile updated successfully!", "success");
       localStorage.setItem("user", JSON.stringify({ ...user, ...formData }));
       setUser({ ...user, ...formData });
@@ -85,7 +110,6 @@ export function Profile() {
     if (confirm.isConfirmed) {
       try {
         const token = localStorage.getItem("token");
-
         await axios.delete(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}`,
           {
@@ -94,7 +118,6 @@ export function Profile() {
             },
           }
         );
-
         localStorage.clear();
         Swal.fire("Deleted", "Your account has been deleted.", "success");
         window.location.href = "/";
@@ -108,7 +131,6 @@ export function Profile() {
   const handleChangePassword = async () => {
     try {
       const token = localStorage.getItem("token");
-
       const res = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/update/password/${
           user.id
@@ -120,7 +142,6 @@ export function Profile() {
           },
         }
       );
-
       Swal.fire("Success", res.data.message, "success");
       setPasswords({ oldPassword: "", newPassword: "" });
     } catch (err) {
@@ -136,7 +157,7 @@ export function Profile() {
     if (!file) return;
 
     try {
-      const uploadedUrl = await mediaUpload(file); // image upload with renaming
+      const uploadedUrl = await mediaUpload(file);
       setFormData((prev) => ({
         ...prev,
         image: uploadedUrl,
@@ -148,10 +169,20 @@ export function Profile() {
     }
   };
 
+  const toggleOrderHistory = () => {
+    setIsOrderHistoryVisible((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    Swal.fire("Logged Out", "You have been logged out.", "success");
+    window.location.href = "/login";
+  };
+
   if (!user) return <div className="p-6">Loading profile...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-xl mt-10">
+    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-gray-700 to-pink-700 rounded-xl shadow-xl mt-10">
       <div className="flex flex-col items-center mb-6">
         <div
           onClick={() => fileInputRef.current.click()}
@@ -176,6 +207,12 @@ export function Profile() {
         <h2 className="text-3xl font-semibold text-white text-center mb-4">
           Your Profile
         </h2>
+        <button
+          onClick={handleLogout}
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-all duration-200"
+        >
+          Logout
+        </button>
       </div>
 
       <div className="bg-white rounded-lg p-6 shadow-lg">
@@ -219,11 +256,11 @@ export function Profile() {
             className="border p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Address"
           />
-          
+
           <div className="flex justify-between mt-6">
             <button
               onClick={handleUpdate}
-              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="bg-accent text-white px-6 py-3 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
             >
               Update Profile
             </button>
@@ -245,7 +282,7 @@ export function Profile() {
               name="oldPassword"
               value={passwords.oldPassword}
               onChange={handlePasswordChange}
-              className="border p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="border p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-5"
               placeholder="Old Password"
             />
             <input
@@ -253,7 +290,7 @@ export function Profile() {
               name="newPassword"
               value={passwords.newPassword}
               onChange={handlePasswordChange}
-              className="border p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="border p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-5"
               placeholder="New Password"
             />
             <button
@@ -263,9 +300,86 @@ export function Profile() {
               Change Password
             </button>
           </div>
+
+          {/* Order History Section */}
+          <div className="mt-10 border-t pt-6">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-gray-700 mb-4">
+                Order History
+              </h3>
+              <button
+                onClick={toggleOrderHistory}
+                className="text-sm text-blue-600 hover:underline"
+              >
+                {isOrderHistoryVisible ? "Collapse" : "Expand"}
+              </button>
+            </div>
+
+            {isOrderHistoryVisible && (
+              <>
+                {ordersLoading ? (
+                  <p>Loading order history...</p>
+                ) : orders.length === 0 ? (
+                  <p className="text-gray-500">No orders found.</p>
+                ) : (
+                  <ul className="space-y-6">
+                    {orders.map((order, idx) => (
+                      <li
+                        key={order._id || idx}
+                        className="border p-4 rounded-md shadow-sm bg-gray-50"
+                      >
+                        <p>
+                          <strong>Order ID:</strong> {order.orderId}
+                        </p>
+                        <p>
+                          <strong>Date:</strong>{" "}
+                          {new Date(order.orderDate).toLocaleDateString()}
+                        </p>
+                        <p>
+                          <strong>Total:</strong> Rs.{order.totalAmount}
+                        </p>
+                        <p>
+                          <strong>Description:</strong> {order.description}
+                        </p>
+
+                        <div className="mt-4">
+                          <strong>Items:</strong>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                            {order.orderItem?.map((item, i) => (
+                              <div
+                                key={i}
+                                className="flex items-center gap-4 border p-2 rounded-md bg-white shadow"
+                              >
+                                <img
+                                  src={item.product.image}
+                                  alt={item.product.name}
+                                  className="w-16 h-16 object-cover rounded"
+                                />
+                                <div>
+                                  <p className="font-semibold">
+                                    {item.product.name}
+                                  </p>
+                                  <p>
+                                    Rs.{item.product.price} x {item.quantity}
+                                  </p>
+                                  <p className="text-sm text-gray-500">
+                                    Total: Rs.
+                                    {item.product.price * item.quantity}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
-     
     </div>
   );
 }

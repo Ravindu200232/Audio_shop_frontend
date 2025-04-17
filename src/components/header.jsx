@@ -15,7 +15,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="w-full h-[80px] shadow-xl flex justify-between items-center px-4 md:px-8 bg-primary relative">
+    <header className="w-full h-[80px] shadow-xl flex justify-between items-center px-4 md:px-8  bg-gradient-to-r from-gray-900 to-primary relative">
       {/* Logo */}
       <div className="flex items-center">
         <img

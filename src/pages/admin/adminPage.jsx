@@ -1,13 +1,15 @@
-import { MdOutlinePayments } from "react-icons/md";
+import { MdOutlinePayments, MdRateReview } from "react-icons/md";
 import { BsGraphDown } from "react-icons/bs";
 import { CiSpeaker, CiBookmarkCheck, CiUser } from "react-icons/ci";
 import { Link, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
+
 import AdminItemPage from "./adminItemPage";
 import AddItemPage from "./addItemPage";
 import UpdateItemPage from "./updateItemPage";
 import User from "./users";
 import AdminBookingPage from "./adminbookingpage";
-import { MdRateReview } from "react-icons/md";
 import { AdminReviewPage } from "./adminReviewpage";
 import { AdminInquiryPage } from "./adminInquirypage";
 import AdminPackagePage from "./adminpakage";
@@ -16,69 +18,76 @@ import UpdatePackagePage from "./updatepackage";
 import { AdminPayment } from "./adminPayment";
 
 export default function AdminPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const closeSidebar = () => setSidebarOpen(false);
+
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  if (!token) {
+    window.location.href = "/login";
+  }
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen overflow-hidden">
+      {/* Mobile Menu Toggle */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button onClick={toggleSidebar} className="text-3xl text-gray-800">
+          {sidebarOpen ? <HiOutlineX /> : <HiOutlineMenuAlt3 />}
+        </button>
+      </div>
+
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md flex flex-col justify-between">
+      <aside
+        className={`fixed md:static z-40 top-0 left-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        } flex flex-col justify-between`}
+      >
         <div>
           <div className="flex items-center justify-center h-20 border-b">
             <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
           </div>
 
-          <nav className="mt-10">
-            <Link
-              to="/admin/booking"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <CiBookmarkCheck className="w-6 h-6" />
-              <span className="ml-4">Bookings</span>
-            </Link>
-            <Link
-              to="/admin/item"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <CiSpeaker className="w-6 h-6" />
-              <span className="ml-4">Items</span>
-            </Link>
-            <Link
-              to="/admin/package"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <CiBookmarkCheck className="w-6 h-6" />
-              <span className="ml-4">Packages</span>
-            </Link>
-            <Link
-              to="/admin/user"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <CiUser className="w-6 h-6" />
-              <span className="ml-4">Users</span>
-            </Link>
-            <Link
-              to="/admin/review"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <MdRateReview className="w-6 h-6" />
-              <span className="ml-4">Reviews</span>
-            </Link>
-            <Link
-              to="/admin/inquiry"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <BsGraphDown className="w-6 h-6" />
-              <span className="ml-4">Inquiries</span>
-            </Link>
-            <Link
-              to="/admin/payment"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              <MdOutlinePayments className="w-6 h-6" />
-              <span className="ml-4">Payment</span>
-            </Link>
+          <nav className="mt-6">
+            {[
+              {
+                to: "/admin/booking",
+                icon: <CiBookmarkCheck />,
+                label: "Bookings",
+              },
+              { to: "/admin/item", icon: <CiSpeaker />, label: "Items" },
+              {
+                to: "/admin/package",
+                icon: <CiBookmarkCheck />,
+                label: "Packages",
+              },
+              { to: "/admin/user", icon: <CiUser />, label: "Users" },
+              { to: "/admin/review", icon: <MdRateReview />, label: "Reviews" },
+              {
+                to: "/admin/inquiry",
+                icon: <BsGraphDown />,
+                label: "Inquiries",
+              },
+              {
+                to: "/admin/payment",
+                icon: <MdOutlinePayments />,
+                label: "Payment",
+              },
+            ].map(({ to, icon, label }) => (
+              <Link
+                key={to}
+                to={to}
+                onClick={closeSidebar}
+                className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
+              >
+                {icon}
+                <span className="ml-4">{label}</span>
+              </Link>
+            ))}
           </nav>
         </div>
 
-        {/* 🔓 Logout Button */}
+        {/* Logout Button */}
         <button
           onClick={() => {
             localStorage.clear();
@@ -91,7 +100,7 @@ export default function AdminPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 p-4 :ml-64 bg-gray-100 overflow-y-auto">
         <Routes>
           <Route path="/booking" element={<AdminBookingPage />} />
           <Route path="/item" element={<AdminItemPage />} />

@@ -9,14 +9,6 @@ export default function PackageDetails() {
   const navigate = useNavigate();
   const id = location.state?.packageDetails?._id;
 
-  const calculateDays = () => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = end.getTime() - start.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return Math.max(diffDays, 1);
-  };
-
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [packageDetails, setPackageDetails] = useState(null);
@@ -25,6 +17,14 @@ export default function PackageDetails() {
   const [endDate, setEndDate] = useState(formatDate(new Date()));
   const [hours, setHours] = useState(1);
   const [total, setTotal] = useState(0);
+
+  const calculateHours = () => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = end.getTime() - start.getTime();
+    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+    return Math.max(diffHours, 1); // Minimum 1 hour
+  };
 
   useEffect(() => {
     const fetchPackage = async () => {
@@ -45,52 +45,49 @@ export default function PackageDetails() {
   }, [id]);
 
   useEffect(() => {
-    if (packageDetails && hours > 0) {
+    if (packageDetails) {
       const basePrice = packageDetails.basePrice || 0;
-      setTotal(basePrice * hours);
+      const calculatedHours = calculateHours();
+      setHours(calculatedHours);
+      setTotal(basePrice * calculatedHours);
     }
-  }, [packageDetails, hours]);
+  }, [packageDetails, startDate, endDate]);
 
   const handleBooking = async () => {
     if (!startDate || !endDate || total <= 0) {
-      alert("Please select valid dates and calculate the total price.");
+      alert("Please select valid dates.");
       return;
     }
 
-    // Include the package inclusions in the order items
     const orderItems = (packageDetails?.orderItem || []).map((item) => ({
       key: item.product?.key,
       qty: item.quantity || 1,
-      // Include additional data from the package
-      inclusions: packageDetails.inclusions || [], // Add inclusions data to each item
+      inclusions: packageDetails.inclusions || [],
     }));
 
-    // Concatenate all package details for the description
     const description = `
       Package Name: ${packageDetails.name}
       Description: ${packageDetails.description || "No description provided."}
       Inclusions: ${
         packageDetails.inclusions?.join(", ") || "No inclusions listed"
       }
-      Base Price: $${packageDetails.basePrice || "N/A"}
+      Base Price: Rs.${packageDetails.basePrice || "N/A"}
     `;
 
     const orderData = {
       orderItem: orderItems,
       startingDate: startDate,
-      hours,
       endingDate: endDate,
+      hours,
       totalAmount: total,
-      days: calculateDays(),
-      description: description, // Adding the new concatenated description field
+      days: Math.ceil(hours / 24),
+      description,
     };
-
-    console.log("Order Data:", orderData);
 
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("User is not authenticated. Please log in.");
+        toast.error("Please log in to book a package.");
         return;
       }
 
@@ -105,12 +102,12 @@ export default function PackageDetails() {
       );
 
       if (response.status === 200) {
-        alert("Booking successful!");
+        toast.success("Booking successful!");
         navigate("/pkgBookingConfirm", { state: response.data });
       }
     } catch (error) {
       console.error("Booking failed:", error);
-      alert("There was an error with your booking.");
+      toast.error("Booking failed. Please try again.");
     }
   };
 
@@ -141,10 +138,19 @@ export default function PackageDetails() {
                 <h3 className="text-2xl font-semibold text-primary">
                   Package Inclusions:
                 </h3>
-                <ul className="mt-4 list-disc pl-5 text-primary">
-                  {packageDetails.inclusions.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
+                <ul className="mt-4 list-disc pl-5 text-primary space-y-1">
+                  {packageDetails.inclusions.flatMap((item, index) => {
+                    return item
+                      .split(".")
+                      .filter((sentence) => sentence.trim() !== "")
+                      .map((sentence, subIndex) => (
+                        <li key={`${index}-${subIndex}`}>
+                          {sentence.trim().endsWith(".")
+                            ? sentence.trim()
+                            : sentence.trim() + "."}
+                        </li>
+                      ));
+                  })}
                 </ul>
               </div>
             ) : (
@@ -181,26 +187,19 @@ export default function PackageDetails() {
                   className="w-full border border-gray-300 rounded-lg p-2"
                 />
               </div>
-
-              <div>
-                <label className="block mb-2 font-medium text-primary">
-                  Hours:
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={hours}
-                  onChange={(e) => setHours(parseInt(e.target.value) || 1)}
-                  className="w-full border border-gray-300 rounded-lg p-2"
-                />
-              </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-4">
+              <p className="text-sm text-primary">
+                Duration: <strong>{hours} hour(s)</strong>
+              </p>
+            </div>
+
+            <div className="mt-4">
               <h4 className="text-lg font-semibold text-primary">
                 Total Price:{" "}
                 <span className="text-primary font-bold">
-                  ${total.toFixed(2)}
+                  Rs.{total.toFixed(2)}
                 </span>
               </h4>
             </div>

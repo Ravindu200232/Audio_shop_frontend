@@ -20,24 +20,14 @@ export default function AddItemPage() {
     const promises = [];
 
     for (let i = 0; i < productImages.length; i++) {
-      console.log(productImages[i]);
       const promise = mediaUpload(productImages[i]);
       promises.push(promise);
-      // if(i == 5){
-      //   toast.error("You can only uploaded 25 images at a time")
-      //   break;
-      // }
     }
 
     const token = localStorage.getItem("token");
+
     if (token) {
       try {
-        // Promise.all(promises).then((result)=>{
-        //   console.log(result);
-        // }).catch((err)=>{
-        //   toast.error(err)
-        // })
-
         const imageUrls = await Promise.all(promises);
         const result = await axios.post(
           `${backendUrl}/api/products`,
@@ -59,7 +49,7 @@ export default function AddItemPage() {
         toast.success(result.data.message);
         navigate("/admin/item");
       } catch (err) {
-        toast.error(err.response.data.error);
+        toast.error(err.response?.data?.error || "Failed to add item");
       }
     } else {
       toast.error("Please login first");
@@ -67,9 +57,9 @@ export default function AddItemPage() {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100 px-2 sm:px-4 py-6">
       <h1 className="text-2xl font-bold text-gray-700 mb-6">Add New Item</h1>
-      <div className="w-[400px] bg-white shadow-xl rounded-lg p-6 flex flex-col space-y-4">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-lg p-6 flex flex-col space-y-4">
         <input
           type="text"
           placeholder="Product Key"
@@ -113,14 +103,28 @@ export default function AddItemPage() {
           onChange={(e) => setProductDescription(e.target.value)}
         />
 
-        <input
-          type="file"
-          multiple
-          onChange={(e) => {
-            setProductImages(e.target.files);
-          }}
-          className="w-full p-2 border rounded"
-        ></input>
+        <label className="w-full cursor-pointer text-sm text-gray-600">
+          <span className="block mb-1">Upload Images</span>
+          <input
+            type="file"
+            multiple
+            onChange={(e) => setProductImages(e.target.files)}
+            className="w-full p-2 border border-gray-300 rounded-lg"
+          />
+        </label>
+
+        {productImages.length > 0 && (
+          <div className="grid grid-cols-3 gap-2">
+            {Array.from(productImages).map((file, idx) => (
+              <img
+                key={idx}
+                src={URL.createObjectURL(file)}
+                alt="preview"
+                className="w-full h-24 object-cover rounded"
+              />
+            ))}
+          </div>
+        )}
 
         <div className="flex justify-between space-x-2">
           <button
@@ -131,9 +135,7 @@ export default function AddItemPage() {
           </button>
           <button
             className="w-1/2 bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition"
-            onClick={() => {
-              navigate("/admin/item");
-            }}
+            onClick={() => navigate("/admin/item")}
           >
             Cancel
           </button>

@@ -63,7 +63,7 @@ export function PkgBookingConfirmation() {
         </p>
         
         <p>
-          <span className="font-bold">Total Amount:</span> $
+          <span className="font-bold">Total Amount:</span> Rs.
           {booking.totalAmount.toFixed(2)}
         </p>
 

@@ -18,7 +18,7 @@ export default function ProductCard({ item }) {
         <p className="text-xs text-white">{item.category.toUpperCase()}</p>
 
         <p className="mt-1 text-sm font-bold text-green-600">
-          ${item.price.toFixed(2)}
+          Rs.{item.price.toFixed(2)}
         </p>
 
         <p

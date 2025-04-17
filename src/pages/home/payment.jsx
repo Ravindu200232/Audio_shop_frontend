@@ -74,7 +74,7 @@ export function Payment() {
 
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
         <p className="text-lg mb-2">
-          <strong>Total Amount:</strong> ${amount?.toFixed(2)}
+          <strong>Total Amount:</strong> Rs.{amount?.toFixed(2)}
         </p>
 
         <div className="mb-4">

@@ -48,7 +48,7 @@ export default function BookingConfirmation() {
           <span className="font-bold">Duration:</span> {booking.days} day(s)
         </p>
         <p>
-          <span className="font-bold">Total:</span> $
+          <span className="font-bold">Total:</span> Rs.
           {booking.totalAmount.toFixed(2)}
         </p>
 
@@ -66,7 +66,7 @@ export default function BookingConfirmation() {
                   <div>
                     <p className="font-medium">{item.product.name}</p>
                     <p>Quantity: {item.quantity}</p>
-                    <p>Price: ${item.product.price.toFixed(2)}</p>
+                    <p>Price: Rs.{item.product.price.toFixed(2)}</p>
                   </div>
                 </div>
               </li>
@@ -79,6 +79,13 @@ export default function BookingConfirmation() {
           className="mt-6 bg-accent text-white px-6 py-2 rounded-lg hover:bg-accent-dark transition"
         >
           Proceed to Payment
+        </button>
+
+        <button
+          onClick={() => navigate(-1)}
+          className="mt-6 ml-40 bg-accent text-white px-6 py-2 rounded-lg hover:bg-accent-dark transition"
+        >
+          Cancel
         </button>
       </div>
     </div>

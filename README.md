@@ -2,6 +2,9 @@
 
 This project is a minimal setup for React with Vite, featuring Fast Refresh, ESLint integration, and a simple gallery of screenshots.
 
+**🔗 Live Demo:**  
+👉 [https://audio-shop-frontend-git-main-ravindus-projects-7aa938e5.vercel.app/](https://audio-shop-frontend-git-main-ravindus-projects-7aa938e5.vercel.app/)
+
 ---
 
 ## 📸 Screenshots
@@ -11,8 +14,6 @@ Here are screenshots of the website from `1.png` to `31.png`, located in the `pu
 <details>
 <summary>📸 👉 <strong>CLICK TO EXPAND: Screenshots 1–31</strong> 🔍</summary>
 
-<!-- Image Gallery -->
-  
 ![Screenshot 1](./public/1.png)  
 ![Screenshot 2](./public/2.png)  
 ![Screenshot 3](./public/3.png)  

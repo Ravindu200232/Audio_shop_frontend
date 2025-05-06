@@ -94,7 +94,7 @@ export default function Login() {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.error);
+        toast.error(err.response.data.message);
       });
   }
 
@@ -114,6 +114,7 @@ export default function Login() {
             type="email"
             placeholder="Email"
             id="email"
+            required
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white placeholder-white outline-none"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -121,6 +122,7 @@ export default function Login() {
           <input
             type="password"
             id="password"
+            required
             placeholder="Password"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white mt-6 text-xl text-white placeholder-white outline-none"
             onChange={(e) => setPassword(e.target.value)}

@@ -32,6 +32,12 @@ export default function Register() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
+    
+    if(image == "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"){
+      toast.success("Please upload profile picture")
+      return
+    }
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, {
         email,
@@ -47,7 +53,7 @@ export default function Register() {
       navigate("/login");
     } catch (err) {
       console.error(err);
-      toast.error(err?.response?.data?.error || "An error occurred");
+      toast.error(err?.response?.data?.error || "Email Already Added");
     }
   };
 
@@ -85,12 +91,14 @@ export default function Register() {
             type="text"
             id="firstName"
             placeholder="First Name"
+            required
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setFirstName(e.target.value)}
             value={firstName}
           />
           <input
             type="text"
+            required
             id="lastName"
             placeholder="Last Name"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
@@ -99,6 +107,7 @@ export default function Register() {
           />
           <input
             type="email"
+            required
             id="email"
             placeholder="Email"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
@@ -107,6 +116,7 @@ export default function Register() {
           />
           <input
             type="password"
+            required
             id="password"
             placeholder="Password"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
@@ -115,6 +125,7 @@ export default function Register() {
           />
           <input
             type="text"
+            required
             id="address"
             placeholder="Address"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
@@ -123,6 +134,7 @@ export default function Register() {
           />
           <input
             type="text"
+            required
             id="phone"
             placeholder="Phone"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-4"

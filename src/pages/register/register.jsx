@@ -83,6 +83,7 @@ export default function Register() {
           {/* Form Fields */}
           <input
             type="text"
+            id="firstName"
             placeholder="First Name"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setFirstName(e.target.value)}
@@ -90,6 +91,7 @@ export default function Register() {
           />
           <input
             type="text"
+            id="lastName"
             placeholder="Last Name"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setLastName(e.target.value)}
@@ -97,6 +99,7 @@ export default function Register() {
           />
           <input
             type="email"
+            id="email"
             placeholder="Email"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setEmail(e.target.value)}
@@ -104,6 +107,7 @@ export default function Register() {
           />
           <input
             type="password"
+            id="password"
             placeholder="Password"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setPassword(e.target.value)}
@@ -111,6 +115,7 @@ export default function Register() {
           />
           <input
             type="text"
+            id="address"
             placeholder="Address"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-3"
             onChange={(e) => setAddress(e.target.value)}
@@ -118,19 +123,20 @@ export default function Register() {
           />
           <input
             type="text"
+            id="phone"
             placeholder="Phone"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white outline-none mb-4"
             onChange={(e) => setPhone(e.target.value)}
             value={phone}
           />
 
-          <button className="mt-4 w-[300px] h-[50px] bg-[#010750] text-xl text-white rounded-lg">
+          <button id="register" className="mt-4 w-[300px] h-[50px] bg-[#010750] text-xl text-white rounded-lg">
             Register
           </button>
 
           <span className="text-white text-sm mt-4 mb-2">
             Already have an account?{" "}
-            <span
+            <span id="login"
               className="text-blue-400 cursor-pointer"
               onClick={() => navigate("/login")}
             >

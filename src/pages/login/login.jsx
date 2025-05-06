@@ -113,12 +113,14 @@ export default function Login() {
           <input
             type="email"
             placeholder="Email"
+            id="email"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white text-xl text-white placeholder-white outline-none"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
           <input
             type="password"
+            id="password"
             placeholder="Password"
             className="w-[300px] h-[40px] bg-transparent border-b-2 border-white mt-6 text-xl text-white placeholder-white outline-none"
             onChange={(e) => setPassword(e.target.value)}

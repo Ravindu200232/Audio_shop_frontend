@@ -11,7 +11,9 @@ export default function Register() {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(
+    "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+  );
   const fileInputRef = useRef();
   const navigate = useNavigate();
 
@@ -32,10 +34,12 @@ export default function Register() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    
-    if(image == "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"){
-      toast.success("Please upload profile picture")
-      return
+    if (
+      image ==
+      "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+    ) {
+      toast.success("Please upload profile picture");
+      return;
     }
 
     try {
@@ -61,7 +65,6 @@ export default function Register() {
     <form onSubmit={handleOnSubmit}>
       <div className="w-full h-screen flex justify-center items-center bg-picture">
         <div className="w-[400px] h-[700px] backdrop-blur-xl rounded-2xl flex flex-col justify-center items-center relative">
-          
           <span className="text-white text-3xl mt-24 mb-4">Register</span>
 
           {/* Profile Image */}
@@ -142,13 +145,17 @@ export default function Register() {
             value={phone}
           />
 
-          <button id="register" className="mt-4 w-[300px] h-[50px] bg-[#010750] text-xl text-white rounded-lg">
+          <button
+            id="register"
+            className="mt-4 w-[300px] h-[50px] bg-[#010750] text-xl text-white rounded-lg"
+          >
             Register
           </button>
 
           <span className="text-white text-sm mt-4 mb-2">
             Already have an account?{" "}
-            <span id="login"
+            <span
+              id="login"
               className="text-blue-400 cursor-pointer"
               onClick={() => navigate("/login")}
             >
